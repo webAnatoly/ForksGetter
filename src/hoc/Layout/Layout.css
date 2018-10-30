@@ -1,0 +1,41 @@
+.Layout {
+  max-width: 120rem;
+  min-height: 100vh;
+  margin: auto;
+  background-color: rgb(231, 241, 245);
+  box-shadow: .5rem 0 5rem rgba(0, 0, 0, 0.1), 0 .5rem 5rem rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  /* border: 1px solid blue; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.header {
+  min-height: 15rem;
+  padding: 4rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__greeting {
+  width: 60%;
+}
+
+.header__greeting__h2 {
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #999;
+}
+
+.main {
+  border: 3px solid red;
+  width: 100%;
+  min-height: 50vh;
+  padding: 2rem;
+}

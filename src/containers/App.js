@@ -1,4 +1,6 @@
 import React from 'react';
+import Layout from '../hoc/Layout/Layout';
+
 import styles from './App.css';
 
 export default class App extends React.Component {
@@ -8,11 +10,16 @@ export default class App extends React.Component {
   }
 
   render() {
+    let routes = '';
+    if (true) {
+      routes = 'таблица (компонент)';
+    }
+
     return (
       <div className={styles.App}>
-        <p>Приветствие</p>
-        <div>Экран с приветствием и полем ввода поисковой строки</div>
-        <div>Экран результатов поиска с аналогичной поисковой строкой.</div>
+        <Layout>
+          {routes}
+        </Layout>
       </div>
     );
   }

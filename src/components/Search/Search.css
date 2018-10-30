@@ -1,0 +1,30 @@
+.Search {
+  padding: 7rem 0;
+  width: 60%;
+  height: 9rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  border: none;
+  outline: none;
+  height: 5rem;
+  width: 100%;
+  border-radius: 50px;
+  box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.input::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.input:focus::placeholder {
+  color: transparent;
+}

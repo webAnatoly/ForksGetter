@@ -27,7 +27,7 @@ module.exports = {
             options: {
               modules: true,
               importLoaders: 1, // Number of loaders applied before CSS loader
-              localIdentName: '[name]_[local]_[hash:base64:5]',
+              localIdentName: '[name]__[local]_[hash:base64:5]',
               sourceMap: false,
               minimize: true,
             },
@@ -39,13 +39,13 @@ module.exports = {
               plugins: () => [
                 autoprefixer({
                   browsers: [
-                    "> 1%",
-                    "last 2 versions"
-                  ]
-                })
-              ]
-            }
-          }
+                    '> 1%',
+                    'last 2 versions',
+                  ],
+                }),
+              ],
+            },
+          },
         ],
       },
       {
