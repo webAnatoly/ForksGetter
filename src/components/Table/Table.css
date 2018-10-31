@@ -1,0 +1,37 @@
+.Table {
+  border: 1px solid #dddddd;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.Table th,
+.Table td {
+  text-align: center;
+}
+
+.caption {
+  padding: 2rem;
+}
+
+.thead {
+  background-color: #dddddd;
+}
+
+.thead th {
+  padding: .5rem 2rem;
+  font-size: 1.4rem;
+  color: rgb(110, 109, 109);
+}
+
+.tbody > tr > td {
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.tbody > tr > td:nth-child(4) {
+  width: 40%;
+}
+
+.tbody tr:nth-child(even) {
+  background-color: #dddddd;
+}

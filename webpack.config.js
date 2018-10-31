@@ -7,6 +7,10 @@ module.exports = {
   output: {
     filename: 'browser-bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+  },
+  devServer: {
+    historyApiFallback: true, // Чтобы работал react-router
   },
   module: {
     rules: [

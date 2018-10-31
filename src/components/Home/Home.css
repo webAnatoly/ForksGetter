@@ -1,0 +1,13 @@
+.Home {
+  width: 60%;
+}
+
+.Home p {
+  margin-bottom: 1.5rem;
+}
+
+.greeting__h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: rgb(110, 109, 109);
+}

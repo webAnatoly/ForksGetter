@@ -1,5 +1,9 @@
 import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+
 import Layout from '../hoc/Layout/Layout';
+import Home from '../components/Home/Home';
+import Results from '../components/Results/Results';
 
 import styles from './App.css';
 
@@ -10,10 +14,14 @@ export default class App extends React.Component {
   }
 
   render() {
-    let routes = '';
-    if (true) {
-      routes = 'таблица (компонент)';
-    }
+    const routes = (
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/results" component={Results} />
+        {/* Если юзер запросит несуществующею страницу, перенаправить его на главную */}
+        <Redirect to="/" />
+      </Switch>
+    );
 
     return (
       <div className={styles.App}>
