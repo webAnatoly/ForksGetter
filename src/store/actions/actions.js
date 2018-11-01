@@ -13,15 +13,15 @@ export const fillTable = data => ({
 В данном случае возвращать нужно функцию (а не объект) для того, чтобы
 иметь возможность отложить выполнения экшена и изменение стейта, до получение ответа от сервера.
 В качестве middleware использую redux-thunk */
-export const submitInput = () => (
+export const submitInput = path => (
   (dispatch) => {
-    axiosInstance.get('repos/iliakan/javascript-tutorial-ru/forks') // строка запроса на основе пользовательского ввода
+    axiosInstance.get(path) // строка запроса на основе пользовательского ввода
       .then((response) => {
         dispatch(fillTable(response.data));
       })
       .catch((err) => {
         console.log('error: ', err);
-        dispatchfillTableFailed();
+        // dispatchfillTableFailed();
       });
   }
 );

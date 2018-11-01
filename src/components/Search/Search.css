@@ -8,6 +8,12 @@
   align-items: center;
 }
 
+.label {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
 .input {
   border: none;
   outline: none;
@@ -18,6 +24,12 @@
   padding: 1rem 2rem;
   font-size: inherit;
   font-family: inherit;
+  display: block;
+}
+
+.input__warn {
+  border: 1px solid rgb(240, 153, 153);
+  box-shadow: 0 1rem 2rem rgba(243, 109, 109, 0.1);
 }
 
 .input::placeholder {
@@ -25,6 +37,18 @@
   font-style: italic;
 }
 
-.input:focus::placeholder {
-  color: transparent;
+.label__hint {
+  color: #6e6d6d;
+  font-style: italic;
+  transform: translateY(-8rem);
+  transition: all .3s;
+  display: block;
+  margin: auto;
+}
+
+/*  когда placeholder-shown то скрываем подсказку. Соответсвенно когда юзер начнет вводит текст placeholder исчезнет, а подсказка появится */
+.input:placeholder-shown + .label__hint {
+  transform: translateY(-6rem);
+  opacity: 0;
+  visibility: hidden;
 }

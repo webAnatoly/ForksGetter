@@ -6,22 +6,60 @@ import * as actions from '../../store/actions/actions';
 
 import css from './Search.css';
 
-const Search = (props) => {
-  const { onSubmit } = props;
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: '',
+      isValid: false,
+      isTouched: false,
+    };
+  }
 
-  const submitHandler = (event) => {
+  submitHandler = (event) => {
     event.preventDefault();
-    console.log(onSubmit);
-    onSubmit();
+    const { onSubmit } = this.props;
+    const { isValid, value } = this.state;
+    let path = '';
+    // const path = 'repos/webAnatoly/route-editor/forks';
+    if (isValid) {
+      path = value;
+      onSubmit(path);
+    } else {
+      // показать предупреждение
+    }
   };
 
-  return (
-    <form className={css.Search} onSubmit={submitHandler}>
-      <input type="text" className={css.input} placeholder="Введите имя репозитория вида :owner/:repositoryName" />
-    </form>
+  handleChange = (event) => {
+    this.setState({
+      value: event.target.value,
+      isTouched: true,
+    });
+    this.checkValidity(event.target.value);
+  }
 
-  );
-};
+  checkValidity = (str) => {
+    console.log('valasdf', str);
+  };
+
+  render() {
+    const { value, isValid, isTouched } = this.state;
+    const inputCssClasses = [css.input];
+
+    if (isTouched && !isValid) {
+      inputCssClasses.push(css.input__warn);
+    }
+
+    return (
+      <form className={css.Search} onSubmit={this.submitHandler}>
+        <label className={css.label} htmlFor="searchRequest">
+          <input id="searchRequest" type="text" className={inputCssClasses.join(' ')} value={value} placeholder="Введите имя репозитория вида :owner/:repositoryName" onChange={this.handleChange} />
+          <span className={css.label__hint}>Введите имя репозитория вида :owner/:repositoryName</span>
+        </label>
+      </form>
+    );
+  }
+}
 
 Search.propTypes = {
   onSubmit: PropTypes.func.isRequired,
@@ -32,7 +70,7 @@ Search.propTypes = {
 // };
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: () => dispatch(actions.submitInput()),
+  onSubmit: path => dispatch(actions.submitInput(path)),
 });
 
 export default connect(null, mapDispatchToProps)(Search);

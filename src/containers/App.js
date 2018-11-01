@@ -1,7 +1,6 @@
 import React from 'react';
-import { Route, Switch, Redirect, Link } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
-import Aux from '../hoc/Aux/Aux';
 import Layout from '../hoc/Layout/Layout';
 import Home from '../components/Home/Home';
 import Results from '../components/Results/Results';
