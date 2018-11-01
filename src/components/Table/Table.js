@@ -2,26 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Aux from '../../hoc/Aux/Aux';
-
-// import * as actions from '../../store/actions/actions';
-
 import css from './Table.css';
 
 const Table = ({ array }) => {
   let data = array;
 
-  if (!data || !data.length) {
-    data = null;
+  if (Array.isArray(data)) {
+    data = data.map((forker) => {
+      let owner;
+      let url;
+      const repoName = forker.full_name ? forker.full_name : 'не удалось получить корректные данные';
+      const stars = forker.stargazers_count !== undefined ? forker.stargazers_count : 'не удалось получить корректные данные';
+      let key;
+
+      if (forker.owner) {
+        owner = forker.owner.login;
+        // если вдруг forker.owner.login == undefined, то сгенерировать рандомный key
+        key = forker.owner.login ? forker.owner.login : Math.random() + Math.random();
+      } else {
+        owner = 'не удалось получить корректные данные';
+        key = Math.random() + Math.random();
+      }
+
+      if (forker.html_url) {
+        url = forker.html_url;
+      } else {
+        url = '#';
+      }
+
+      return (
+        <tr key={key}>
+          <td>{repoName}</td>
+          <td>{owner}</td>
+          <td>{stars}</td>
+          <td><a href={url}>{url}</a></td>
+        </tr>
+      );
+    });
   } else {
-    data = data.map(forker => (
-      <tr>
-        <td>{forker.owner.login}</td>
-        <td>{forker.full_name}</td>
-        <td>{forker.stargazers_count}</td>
-        <td><a href={forker.html_url}>{forker.html_url}</a></td>
-      </tr>
-    ));
+    data = null;
   }
 
   return (
@@ -43,14 +62,14 @@ const Table = ({ array }) => {
 };
 
 Table.propTypes = {
-  array: PropTypes.node, // ожидаю получить массив
+  array: PropTypes.oneOfType([PropTypes.array]), // ожидаю получить массив
 };
 
 Table.defaultProps = {
   array: [],
 };
 const mapStateToProps = state => ({
-  array: state.array,
+  array: state.table.array,
 });
 
 export default connect(mapStateToProps)(Table);
