@@ -1,5 +1,5 @@
-import axios from 'axios';
 import * as actionTypes from './actionTypes';
+import axiosInstance from '../../axios-base-url';
 
 /* Action Creators */
 export const test = () => ({ type: actionTypes.TEST });
@@ -15,7 +15,7 @@ export const fillTable = data => ({
 В качестве middleware использую redux-thunk */
 export const submitInput = () => (
   (dispatch) => {
-    axios.get('https://api.github.com/repos/iliakan/javascript-tutorial-ru/forks') // строка запроса на основе пользовательского ввода
+    axiosInstance.get('repos/iliakan/javascript-tutorial-ru/forks') // строка запроса на основе пользовательского ввода
       .then((response) => {
         dispatch(fillTable(response.data));
       })
