@@ -7,7 +7,7 @@ import Results from '../components/Results/Results';
 
 import styles from './App.css';
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -32,3 +32,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default App;

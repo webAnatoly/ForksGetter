@@ -2,16 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
+import rootReducer from './store/reducers/index';
 import App from './containers/App';
-
-import tableReducer from './store/reducers/tableReducer';
-
-const rootReducer = combineReducers({
-  table: tableReducer,
-});
 
 /*
 Cоздать глобальный store для всего приложения

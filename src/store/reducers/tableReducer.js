@@ -1,12 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
+import copyState from '../../share/deepCopyObj';
 
 const initialState = {
   array: [],
-};
-
-const copyState = (state) => {
-  const newState = JSON.parse(JSON.stringify(state));
-  return newState;
 };
 
 const fillTable = (state, action) => {

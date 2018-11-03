@@ -9,13 +9,20 @@ const Home = () => (
   <Aux>
     <div className={css.Home}>
       <h2 className={css.greeting__h2}>Добро пожаловать!</h2>
-      <p>Текст приветствия и описание приложения.</p>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas, ducimus maxime. Lorem ipsum dolor sit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, et libero!</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nobis iste fugiat, excepturi mollitia expedita laborum optio.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis dolore tempora eum nemo. Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quas veniam rem asperiores explicabo? Provident, ad esse. Cumque, ipsa! Repellat, ut eos?</p>
+      <p>
+        Данное приложение, в табличном виде отображает
+        <em> forks </em>
+        введенного в поисковую строку репозитория.
+      </p>
+      <p>
+        Для ввода используется имя репозитория вида
+        <em> owner/repositoryName</em>
+        .
+      </p>
     </div>
     <Search />
-  </Aux>);
+  </Aux>
+);
 
 // Home.propTypes = {
 
