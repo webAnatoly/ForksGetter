@@ -6,6 +6,7 @@ import Aux from '../../hoc/Aux/Aux';
 import Search from '../Search/Search';
 import Table from '../Table/Table';
 import Loader from '../Loader/Loader';
+import Pagination from '../Pagination/Pagination';
 
 const Results = (props) => {
   const { error404, isInputValid, loading } = props;
@@ -32,6 +33,7 @@ const Results = (props) => {
     <Aux>
       <Search />
       {result}
+      <Pagination />
     </Aux>
   );
 };

@@ -1,0 +1,40 @@
+.Pagination {
+  width: 100%;
+  min-height: 8rem;
+  padding: 4rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.Pagination .button:not(:first-child) {
+  margin-left: 2rem;
+}
+
+.button {
+  width: 4rem;
+  height: 4rem;
+  border: none;
+  outline: 0;
+  background-color: #fff;
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+  border-radius: 30px;
+  font-size: 1.7rem;
+  color: rgb(110, 109, 109);
+}
+
+.button:focus {
+  border: none;
+  outline: 0;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.arrowButton {
+  height: 4rem;
+  width: 8rem;
+}

@@ -21,8 +21,8 @@ export const initPagination = strWithLinks => ({
   type: actionTypes.PAGINATION_INIT,
   strWithLinks,
 });
-export const initUpdate = () => ({ type: actionTypes.PAGINATION_UPDATE });
-export const initReset = () => ({ type: actionTypes.PAGINATION_RESET });
+export const paginationUpdate = () => ({ type: actionTypes.PAGINATION_UPDATE });
+export const paginationReset = () => ({ type: actionTypes.PAGINATION_RESET });
 
 /* Этот Action Creator возвращает не объект, а функцию.
 Это возможно благодаря подключенному middleware redux-thunk.
@@ -33,6 +33,7 @@ export const submitInput = path => (
   (dispatch) => {
     axiosInstance.get(path) // строка запроса на основе пользовательского ввода
       .then((response) => {
+        console.log('resp: ', response.headers.link);
         dispatch(loadSuccess());
         dispatch(error404gone());
         dispatch(initPagination(response.headers.link));
@@ -40,6 +41,7 @@ export const submitInput = path => (
       })
       .catch((err) => {
         dispatch(loadFails());
+        dispatch(paginationReset());
         if (err.response !== undefined && (err.response.status === 404 || err.message.search('404') !== -1)) {
           dispatch(error404());
         } else {
