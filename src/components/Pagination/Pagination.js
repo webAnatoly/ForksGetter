@@ -1,21 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
-import Aux from '../../hoc/Aux/Aux';
+import * as actions from '../../store/actions/actions';
 
 import css from './Pagination.css';
 
-const getBaseLink = link => link.substring(0, link.indexOf('?page='));
+const getPartOfPath = link => link.substring(link.indexOf('repositories'), link.indexOf('?page='));
 
 const Pagination = (props) => {
   const {
-    show, totalPages, link, targetPage, currentPage,
+    show, totalPages, link, currentPage, clickHandler,
   } = props;
-
   let pagination;
-  let baseLink;
+  let partOfPath;
   const continuum = 7;
   const slots = 9;
   const em = {
@@ -23,7 +21,7 @@ const Pagination = (props) => {
     transform: 'scale(1.2)',
   };
 
-  if (link !== '') { baseLink = getBaseLink(link); }
+  if (link !== '') { partOfPath = getPartOfPath(link); }
 
   // если одна страница то пагинацию не показывать
   if (!show || totalPages === 1) { pagination = null; }
@@ -33,12 +31,13 @@ const Pagination = (props) => {
     pagination = (
       <div className={css.Pagination}>
         {
-          Array(totalPages).fill('').map((btn, index) => (
+          Array(totalPages).fill('').map((n, index) => (
             <button
               key={Math.random()}
               className={css.button}
               type="button"
               style={index === currentPage - 1 ? em : {}}
+              onClick={() => clickHandler(`${partOfPath}?page=${index + 1}`, index + 1)}
             >
               {index + 1}
             </button>
@@ -56,20 +55,32 @@ const Pagination = (props) => {
         {
           Array(slots).fill('').map((btn, index) => {
             let content = index + 1;
+            let onClickHandler = () => clickHandler(`${partOfPath}?page=${index + 1}`, index + 1);
             if (index === 7) { content = '...'; }
-            if (index === 8) { content = totalPages; }
+            if (index === 8) {
+              content = totalPages;
+              onClickHandler = () => clickHandler(`${partOfPath}?page=${totalPages}`, totalPages);
+            }
             return (
               <button
                 key={Math.random()}
                 className={css.button}
                 type="button"
                 style={index === currentPage - 1 ? em : {}}
+                onClick={onClickHandler}
               >
                 { content }
               </button>);
           })
         }
-        <button key={Math.random()} className={[css.button, css.arrowButton].join(' ')} type="button">Next</button>
+        <button
+          key={Math.random()}
+          className={[css.button, css.arrowButton].join(' ')}
+          type="button"
+          onClick={() => clickHandler(`${partOfPath}?page=${currentPage + 1}`, currentPage + 1)}
+        >
+          Next
+        </button>
       </div>
     );
   }
@@ -81,25 +92,47 @@ const Pagination = (props) => {
     for (let i = center; i < center + 9; i += 1) { arr.push(i); }
     pagination = (
       <div className={css.Pagination}>
-        <button key={Math.random()} className={[css.button, css.arrowButton].join(' ')} type="button">Prev</button>
+        <button
+          key={Math.random()}
+          className={[css.button, css.arrowButton].join(' ')}
+          type="button"
+          onClick={() => clickHandler(`${partOfPath}?page=${currentPage - 1}`, currentPage - 1)}
+        >
+          Prev
+        </button>
         {
           arr.map((number, index) => {
             let content = number;
-            if (index === 0) { content = '1'; }
+            let onClickHandler = () => clickHandler(`${partOfPath}?page=${number}`, number);
+            if (index === 0) {
+              content = '1';
+              onClickHandler = () => clickHandler(`${partOfPath}?page=1`, 1);
+            }
             if (index === 1 || index === 7) { content = '...'; }
-            if (index === 8) { content = totalPages; }
+            if (index === 8) {
+              content = totalPages;
+              onClickHandler = () => clickHandler(`${partOfPath}?page=${totalPages}`, totalPages);
+            }
             return (
               <button
                 key={Math.random()}
                 className={css.button}
                 type="button"
                 style={number === currentPage ? em : {}}
+                onClick={onClickHandler}
               >
                 {content}
               </button>);
           })
         }
-        <button key={Math.random()} className={[css.button, css.arrowButton].join(' ')} type="button">Next</button>
+        <button
+          key={Math.random()}
+          className={[css.button, css.arrowButton].join(' ')}
+          type="button"
+          onClick={() => clickHandler(`${partOfPath}?page=${currentPage + 1}`, currentPage + 1)}
+        >
+          Next
+        </button>
       </div>
     );
   }
@@ -111,11 +144,22 @@ const Pagination = (props) => {
     for (let i = item; i <= totalPages; i += 1) { arr.push(i); }
     pagination = (
       <div className={css.Pagination}>
-        <button key={Math.random()} className={[css.button, css.arrowButton].join(' ')} type="button">Prev</button>
+        <button
+          key={Math.random()}
+          className={[css.button, css.arrowButton].join(' ')}
+          type="button"
+          onClick={() => clickHandler(`${partOfPath}?page=${currentPage - 1}`, currentPage - 1)}
+        >
+          Prev
+        </button>
         {
           arr.map((number, index) => {
             let content = number;
-            if (index === 0) { content = '1'; }
+            let onClickHandler = () => clickHandler(`${partOfPath}?page=${number}`, number);
+            if (index === 0) {
+              content = '1';
+              onClickHandler = () => clickHandler(`${partOfPath}?page=1`, 1);
+            }
             if (index === 1) { content = '...'; }
             if (index === 8) { content = totalPages; }
             return (
@@ -124,6 +168,7 @@ const Pagination = (props) => {
                 className={css.button}
                 type="button"
                 style={number === currentPage ? em : {}}
+                onClick={onClickHandler}
               >
                 {content}
               </button>);
@@ -140,22 +185,25 @@ Pagination.propTypes = {
   show: PropTypes.bool,
   totalPages: PropTypes.number,
   link: PropTypes.string,
-  targetPage: PropTypes.number,
-  currentPage: PropTypes.number,
+  currentPage: PropTypes.number.isRequired,
 };
 
 Pagination.defaultProps = {
   show: true,
   totalPages: 1,
   link: '',
-  targetPage: 1,
-  currentPage: 1,
 };
 
 const mapStateToProps = state => ({
   totalPages: state.pagination.totalPages,
   link: state.pagination.link,
-  targetPage: state.pagination.targetPage,
+  currentPage: state.pagination.currentPage,
 });
 
-export default connect(mapStateToProps)(Pagination);
+const mapDispatchToProps = dispatch => ({
+  clickHandler: (path, targetPage) => dispatch(
+    actions.clickHandlerPaginationButton(path, targetPage),
+  ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pagination);

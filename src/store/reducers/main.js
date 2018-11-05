@@ -4,6 +4,7 @@ import copyState from '../../share/deepCopyObj';
 const initialState = {
   isInputValid: true,
   loading: false,
+  targetRepoName: '',
 };
 
 const inputValid = (state) => {
@@ -36,6 +37,19 @@ const loadFails = (state) => {
   return newState;
 };
 
+const initTargetRepoName = (state, action) => {
+  const newState = copyState(state);
+  const { targetRepoName } = action;
+  newState.targetRepoName = targetRepoName;
+  return newState;
+};
+
+const clearTargetRepoName = (state) => {
+  const newState = copyState(state);
+  newState.targetRepoName = '';
+  return newState;
+};
+
 const main = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.VALID_INPUT: return inputValid(state);
@@ -43,6 +57,8 @@ const main = (state = initialState, action) => {
     case actionTypes.LOAD_START: return loadStart(state);
     case actionTypes.LOAD_SUCCESS: return loadSuccess(state);
     case actionTypes.LOAD_FAILS: return loadFails(state);
+    case actionTypes.INIT_TARGET_REPO_NAME: return initTargetRepoName(state, action);
+    case actionTypes.CLEAR_TARGET_REPO_NAME: return clearTargetRepoName(state);
     default: return state;
   }
 };

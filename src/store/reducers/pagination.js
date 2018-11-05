@@ -4,7 +4,7 @@ import copyState from '../../share/deepCopyObj';
 const initialState = {
   totalPages: 1,
   link: '',
-  targetPage: 1,
+  currentPage: 1,
 };
 
 const paginationInit = (state, action) => {
@@ -21,14 +21,13 @@ const paginationInit = (state, action) => {
     newState.totalPages = 1;
     newState.link = '';
   }
-  // newState.totalPages = totalPages;
+  newState.currentPage = 1;
   return newState;
 };
 
 const paginationUpdate = (state, action) => {
-  const { targetPage } = action.data;
   const newState = copyState(state);
-  newState.currentPage = targetPage;
+  newState.currentPage = action.targetPage;
   return newState;
 };
 

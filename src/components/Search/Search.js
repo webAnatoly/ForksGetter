@@ -33,7 +33,7 @@ class Search extends React.Component {
       history.push('/results'); // переместиться на страницу /results
       inputValid(); // меняем редаксовский state
       path = `repos/${value}/forks`;
-      onSubmit(path);
+      onSubmit(path, this.getTargetRepoName(value));
     } else { // не валидный ввод
       notValidInput(); // меняем редаксовский state
       history.push('/results');
@@ -65,6 +65,11 @@ class Search extends React.Component {
 
     return !check && !!oneslash; // если ввод валидный, то вернёт true
   };
+
+  getTargetRepoName = value => (
+    // получает строку вида 'asdf/qwer' возвращает строку вида 'qwer';
+    value.substr(value.indexOf('/') + 1)
+  );
 
   render() {
     const { value, isValid, isTouched } = this.state;
@@ -98,7 +103,7 @@ Search.propTypes = {
 // };
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: path => dispatch(actions.submitInput(path)),
+  onSubmit: (path, targetRepoName) => dispatch(actions.submitInput(path, targetRepoName)),
   inputValid: () => dispatch(actions.validInput()),
   notValidInput: () => dispatch(actions.notValidInput()),
   loadStart: () => dispatch(actions.loadStart()),

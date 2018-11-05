@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import css from './Table.css';
 
-const Table = ({ array }) => {
+const Table = ({ array, targetRepoName }) => {
   let data = array;
 
   if (Array.isArray(data)) {
@@ -45,7 +45,7 @@ const Table = ({ array }) => {
 
   return (
     <table className={css.Table}>
-      <caption className={css.caption}>Forks репозитория repoName</caption>
+      <caption className={css.caption}>{`Forks репозитория ${targetRepoName}`}</caption>
       <thead className={css.thead}>
         <tr>
           <th>Название репозитария</th>
@@ -63,6 +63,7 @@ const Table = ({ array }) => {
 
 Table.propTypes = {
   array: PropTypes.oneOfType([PropTypes.array]), // ожидаю получить массив
+  targetRepoName: PropTypes.string.isRequired,
 };
 
 Table.defaultProps = {
@@ -70,6 +71,7 @@ Table.defaultProps = {
 };
 const mapStateToProps = state => ({
   array: state.table.array,
+  targetRepoName: state.main.targetRepoName,
 });
 
 export default connect(mapStateToProps)(Table);
